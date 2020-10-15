@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="str"
+            type="String" />
+    </data>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:text='@{String.format("随机生成过的号码%s",str)}'
+    android:textColor="#ffffff"
+    android:background="@drawable/b1"
+    android:layout_height="30dp">
+
+
+</TextView>
+</layout>

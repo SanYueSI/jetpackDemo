@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="bean"
+            type="com.sanyue.jetpakcdemonew.mvvm.bean.WanAndroidNewsBean.ItemDetailsBean" />
+
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@drawable/b2"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@{bean.title}"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="@{bean.shareUser}"
+        app:layout_constraintLeft_toLeftOf="@+id/text"
+        app:layout_constraintTop_toBottomOf="@+id/text"
+        app:layout_constraintRight_toRightOf="@+id/text"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.sanyue.jetpakcdemonew.liveDataBinding.utils.BindingAdapters.OnScrollStateChanged"/>
+        <import type="android.view.View.OnClickListener" />
+        <variable
+            name="vieModel"
+            type="com.sanyue.jetpakcdemonew.liveDataBinding.TwoWayViewModel" />
+    <variable
+        name="onclick"
+        type="OnClickListener" />
+        <variable
+            name="adapter"
+            type="com.sanyue.jetpakcdemonew.liveDataBinding.ListAdapter" />
+        <variable
+            name="book"
+            type="com.sanyue.jetpakcdemonew.liveDataBinding.Book" />
+        <variable
+            name="recycleAdapter"
+            type="com.sanyue.jetpakcdemonew.liveDataBinding.RecycleAdapter" />
+        <variable
+            name="layout"
+            type="androidx.recyclerview.widget.RecyclerView.LayoutManager" />
+        <variable
+            name="l1"
+            type="androidx.databinding.adapters.ViewBindingAdapter.OnViewDetachedFromWindow" />
+        <variable
+            name="s1"
+            type="OnScrollStateChanged" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".liveDataBinding.TwoWayActivity">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#cc00"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="@{vieModel.userLiveData.user}"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/add"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="@{vieModel.field.name}"
+            app:layout_constraintBottom_toBottomOf="@+id/add"
+            android:gravity="center"
+            android:layout_height="0dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/add"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@{String.valueOf(vieModel.field.age)}"
+            app:layout_constraintBottom_toBottomOf="@+id/add"
+            android:gravity="center"
+            android:layout_height="0dp"/>
+        <Button
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{onclick}"
+            android:text="添加一个人"
+            app:layout_constraintLeft_toLeftOf="@id/text"
+            app:layout_constraintRight_toRightOf="@id/text"
+            app:layout_constraintTop_toBottomOf="@id/text" />
+        <TextView
+            android:layout_width="match_parent"
+            android:background="#cc00"
+            android:textSize="18sp"
+            android:id="@+id/tip"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text='@{vieModel.userLiveData.name!=null?vieModel.userLiveData.name+"请随机选取你的车牌":"还没人来选车牌"}'
+            app:layout_constraintTop_toBottomOf="@+id/add"
+            android:layout_height="40dp"/>
+        <Button
+            android:id="@+id/createCarNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{onclick}"
+            android:enabled="@{vieModel.userLiveData.name!=null?true:false}"
+            android:text='@{vieModel.carNumber==0?"请随机生成车牌":"换一个"}'
+            app:layout_constraintLeft_toLeftOf="@id/text"
+            app:layout_constraintRight_toRightOf="@id/text"
+            app:layout_constraintTop_toBottomOf="@id/tip" />
+        <TextView
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tip"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:gravity="center"
+            android:textColor="@android:color/holo_red_dark"
+            app:layout_constraintBottom_toBottomOf="@+id/createCarNumber"
+            android:text='@{vieModel.observableArrayList.size()>2 ? "上一个号码"+vieModel.observableArrayList.get(vieModel.observableArrayList.size()-2):""}'
+            android:layout_height="0dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="@android:color/holo_red_dark"
+            app:layout_constraintBottom_toBottomOf="@+id/createCarNumber"
+            app:layout_constraintTop_toBottomOf="@id/tip"
+            android:gravity="center"
+            android:text='@{String.format("选了%d个",vieModel.observableArrayList.size())}'
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/carNumber"
+            android:layout_width="match_parent"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:text="@{String.valueOf(vieModel.carNumber)}"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/createCarNumber"
+            android:background="@android:color/holo_blue_bright"
+            android:layout_height="40dp"/>
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:button="@drawable/check"
+            android:checked="@={vieModel.check}"
+            android:text="@{String.valueOf(vieModel.check)}"
+            android:paddingLeft="10dp"
+            app:layout_constraintTop_toBottomOf="@id/carNumber"
+            android:layout_height="50dp"/>
+        <ListView
+            android:id="@+id/listView"
+            android:adapter="@{adapter}"
+            android:layout_width="match_parent"
+            android:selectedItemPosition="@{vieModel.observableArrayList.size()-1}"
+            app:layout_constraintTop_toBottomOf="@+id/checkbox"
+            android:layout_height="90dp"/>
+        <TextView
+            android:id="@+id/tip1"
+            app:layout_constraintTop_toBottomOf="@+id/listView"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="自己实现BaseObservable和@BindingAdapter"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@+id/tip1"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:id="@+id/book"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="18sp"
+            android:text='@{book!=null?String.format("%s这本书%d页",book.name,book.pages):"还木有书看"}'
+            android:layout_height="30dp"/>
+        <Button
+            android:id="@+id/addVBook"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/book"
+            android:text="生成书本"
+            android:onClick="onClick"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/score"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/book"
+            android:text="换本书看看"
+            app:layout_constraintLeft_toRightOf="@id/addVBook"
+            android:onClick="onClick"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/scoreText"
+            android:layout_width="match_parent"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="@{book.score}"
+            app:layout_constraintTop_toBottomOf="@+id/score"
+            android:layout_height="30dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
+            app:layout_constraintTop_toBottomOf="@+id/scoreText"
+            android:layout_width="match_parent"
+            android:adapter="@{recycleAdapter}"
+            android:onViewDetachedFromWindow="@{l1}"
+            android:layoutManager="@{layout}"
+            android:ScrollStateChanged="@{s1}"
+            android:scrollToPosition="@{vieModel.books.size()-1}"
+            android:layout_height="90dp"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:imageUrl="@{book.name}"
+            android:placeholder='@{@drawable/head_icon}'
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recycleView"
+            android:layout_height="100dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

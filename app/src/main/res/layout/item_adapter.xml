@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data >
+        <variable name="user" type="com.sanyue.jetpakcdemonew.bean.User"/>
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:gravity='center'
+        android:hint='@{@string/app_name + "是偶数"}'
+        android:background="@{user.age%2==0 ? @android:color/holo_blue_light:@android:color/holo_orange_dark }"
+        android:text='@{user.age%2==0 ?user.age+ "是偶数" : Integer.toString(user.age)}'
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor='@{user.age%2==0 ? @android:color/holo_red_dark:@color/colorAccent }'
+        android:layout_height="30dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

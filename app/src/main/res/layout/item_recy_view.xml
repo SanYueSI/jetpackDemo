@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="book"
+            type="com.sanyue.jetpakcdemonew.liveDataBinding.Book" />
+    </data>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:text='@{String.format("%s有%s页",book.name,String.valueOf(book.pages))}'
+    android:textColor="#ffffff"
+    android:background="@drawable/b1"
+    android:layout_height="30dp">
+
+
+</TextView>
+</layout>

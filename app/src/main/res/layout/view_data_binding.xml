@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="user"
+            type="com.sanyue.jetpakcdemonew.bean.User" />
+    </data>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#cc0"
+    android:layout_height="wrap_content">
+<TextView
+    android:layout_width="match_parent"
+    android:text='@{"名字:"+user.name}'
+    android:textColor="#000000"
+    android:gravity="center"
+    android:textSize="18sp"
+    android:background="#cc00"
+    android:layout_height="40dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:text='@{"年龄:"+user.age}'
+        android:textColor="#000000"
+        android:layout_marginTop="5dp"
+        android:background="#cc00"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_height="40dp"/>
+</LinearLayout>
+</layout>
